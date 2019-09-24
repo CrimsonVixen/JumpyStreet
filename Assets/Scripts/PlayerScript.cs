@@ -8,35 +8,41 @@ public class PlayerScript : MonoBehaviour
     protected float worldGridSize;  //world grid, tile size in unity units
     protected float playerMovementSpeed;  //player movement speed in units per second
     private float internalPlayerSpeed;
-    
+    private float internalAxisValueHorizontal;
+    private float internalAxisValueVertical;
+
     void Start()
     {
-        bool temp1 = SetWorldGridSide(1.0f);
+        bool temp1 = SetWorldGridSide(4.0f);
         bool temp2 = SetPlayerMovementSpeed(1.0f);
+        CalculateActualMoveSpeed();
         tempPlayerPosition = this.gameObject.transform.position;
     }
 
     void Update()
     {
         tempPlayerPosition = this.gameObject.transform.position;
-        if (Input.GetKey("up"))
+        internalAxisValueHorizontal = Input.GetAxis("Horizontal");
+        internalAxisValueVertical = Input.GetAxis("Vertical");
+
+        if (internalAxisValueVertical > 0)
         {
-            tempPlayerPosition.z += 1.0f * Time.deltaTime;
+            tempPlayerPosition.z += internalPlayerSpeed * Time.deltaTime;
             this.gameObject.transform.position = tempPlayerPosition;
         }
-        if (Input.GetKey("down"))
+        if (internalAxisValueVertical < 0)
         {
-            tempPlayerPosition.z -= 1.0f * Time.deltaTime;
+            tempPlayerPosition.z -= internalPlayerSpeed * Time.deltaTime;
             this.gameObject.transform.position = tempPlayerPosition;
         }
-        if (Input.GetKey("left"))
+        if (internalAxisValueHorizontal < 0)
         {
-            tempPlayerPosition.x -= 1.0f * Time.deltaTime;
+            tempPlayerPosition.x -= internalPlayerSpeed * Time.deltaTime;
             this.gameObject.transform.position = tempPlayerPosition;
         }
-        if (Input.GetKey("right"))
+        if (internalAxisValueHorizontal > 0)
         {
-            tempPlayerPosition.x += 1.0f * Time.deltaTime;
+            tempPlayerPosition.x += internalPlayerSpeed * Time.deltaTime;
             this.gameObject.transform.position = tempPlayerPosition;
         }
     }
@@ -56,16 +62,26 @@ public class PlayerScript : MonoBehaviour
     }
 
     public bool SetPlayerMovementSpeed(float moveSpeed)  //Set the player move speed, must be a
-        {                                                //positive number, else will default to 1.0f
-            if (moveSpeed > 0.0f)                        //and return false.
-            {
-                playerMovementSpeed = moveSpeed;
-                return true;
-            }
-            else
-            {
-                playerMovementSpeed = 1.0f;
-                return false;
-            }
+    {                                                    //positive number, else will default to 1.0f
+        if (moveSpeed > 0.0f)                            //and return false.
+        {
+            playerMovementSpeed = moveSpeed;
+            return true;
+        }
+        else
+        {
+            playerMovementSpeed = 1.0f;
+            return false;
         }
     }
+
+    private void CalculateActualMoveSpeed()
+    {
+        internalPlayerSpeed = playerMovementSpeed * worldGridSize;  //adjusts movement speed based on
+    }                                                               //tile size.
+
+    private float GetPlayerActualMoveSpeed()
+    {
+        return internalPlayerSpeed;
+    }
+}
