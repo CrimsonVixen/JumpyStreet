@@ -17,6 +17,12 @@ public class PlayerScript : MonoBehaviour
     protected float playerMovementSpeed;  //player movement speed in world grids per second
     private float internalPlayerSpeed;  //player movement speed in units per seconds
     private int backStepCount;
+
+    //Scoring stuff
+    private int score;      
+    //Cant Create new HighScoreManager or UIScript objects because they are monobehavior classes
+    //HighScoreManager scoreManager = new HighScoreManager();
+    //UIScript UIManager = new UIScript();
     
     void Start()
     {
@@ -31,6 +37,8 @@ public class PlayerScript : MonoBehaviour
         movementLock = false;
 
         backStepCount = 0;
+
+        score = 0;        
     }
 
     void Update()
@@ -124,6 +132,7 @@ public class PlayerScript : MonoBehaviour
         {
             //game over
             //do score stuff
+            //scoreManager.OnGameEnd(score);
         }
     }
 
@@ -132,11 +141,13 @@ public class PlayerScript : MonoBehaviour
         if (clear)
         {
             //move forward
+            score += 10;
         }
         else
         {
             //game over
             //do score stuff
+            //scoreManager.OnGameEnd(score);
         }
     }
 
@@ -149,6 +160,10 @@ public class PlayerScript : MonoBehaviour
             {
                 //game over
                 //do score stuff
+
+
+                //scoreManager.OnGameEnd(score);
+                //UIManager.GameOver(score);
             }
         }
         else
@@ -161,4 +176,6 @@ public class PlayerScript : MonoBehaviour
     {
         this.gameObject.transform.position = playerStartPosition;
     }
+
+    
 }
