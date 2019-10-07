@@ -10,9 +10,12 @@ public class ObstacleGenerator : MonoBehaviour
     {
         for(float i = -19.5F; i < 21; i += 1.5F)
         {
+            //Generate obstacles in every space behind the player
+            //so player can not leave the platform from going backwards
             if(transform.position.z < 0)
             {
-                GameObject tempGO = obstacles[0];
+                float randomObstacle = Random.value;
+                GameObject tempGO = randomObstacle < 0.1F ? obstacles[Random.Range(1, obstacles.Length)] : obstacles[0];
                 Instantiate(tempGO, transform.parent, true);
                 tempGO.transform.position = new Vector3(i, tempGO.transform.position.y, transform.parent.transform.position.z);
             }
@@ -20,40 +23,28 @@ public class ObstacleGenerator : MonoBehaviour
             else
             {
                 float random = Random.value;
+                float randomObstacle = Random.value;
 
-                if (i < -6)
+                //Generate obstacles for left and right side of ground
+                if(i < -6 || i > 6 && random < 0.75F)
                 {
-                    if (random < 0.75F)
-                    {
-                        GameObject tempGO = obstacles[0];
-                        Instantiate(tempGO, transform.parent, true);
-                        tempGO.transform.position = new Vector3(i, tempGO.transform.position.y, transform.parent.transform.position.z);
-                    }
+                    GameObject tempGO = randomObstacle < 0.1F ? obstacles[Random.Range(1, obstacles.Length)] : obstacles[0];
+                    Instantiate(tempGO, transform.parent, true);
+                    tempGO.transform.position = new Vector3(i, tempGO.transform.position.y, transform.parent.transform.position.z);
                 }
 
-                else if (i < 7.5F && i > -7.5F)
+                //Generate obstacles for middle part of ground (playable area)
+                else if(i < 7.5F && i > -7.5F && random < 0.1F)
                 {
-                    if (transform.position.z == 3 && i == 0)
+                    //Do not spawn obstacle at player starting positiion
+                    if(i == 0 && transform.position.z == 3)
                     {
                         return;
                     }
 
-                    if (random < 0.1F)
-                    {
-                        GameObject tempGO = obstacles[0];
-                        Instantiate(tempGO, transform.parent, true);
-                        tempGO.transform.position = new Vector3(i, tempGO.transform.position.y, transform.parent.transform.position.z);
-                    }
-                }
-
-                else if (i > 6)
-                {
-                    if (random < 0.75F)
-                    {
-                        GameObject tempGO = obstacles[0];
-                        Instantiate(tempGO, transform.parent, true);
-                        tempGO.transform.position = new Vector3(i, tempGO.transform.position.y, transform.parent.transform.position.z);
-                    }
+                    GameObject tempGO = randomObstacle < 0.1F ? obstacles[Random.Range(1, obstacles.Length)] : obstacles[0];
+                    Instantiate(tempGO, transform.parent, true);
+                    tempGO.transform.position = new Vector3(i, tempGO.transform.position.y, transform.parent.transform.position.z);
                 }
             }
         }
