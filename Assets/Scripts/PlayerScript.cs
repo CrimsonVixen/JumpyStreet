@@ -93,7 +93,8 @@ public class PlayerScript : MonoBehaviour
     private void SetStarts()
     {
         playerStartPosition = this.gameObject.transform.position;
-        cameraStartPosition;
+        cameraStartPosition = this.gameObject.GetComponentInChildren<Camera>().gameObject.transform.position;
+        modelStartPosition = this.gameObject.GetComponentInChildren<Rigidbody>().gameObject.transform.position;
     }
 
     private void PlayerFallingOffTheWorld()
@@ -196,7 +197,13 @@ public class PlayerScript : MonoBehaviour
     private void ResetPosition()
     {
         this.gameObject.transform.position = playerStartPosition;
-        this.gameObject.GetComponentInChildren<Rigidbody>().gameObject.transform.position = Vector3.zero;
+        this.gameObject.GetComponentInChildren<Rigidbody>().gameObject.transform.position = modelStartPosition;
+        this.gameObject.GetComponentInChildren<Camera>().gameObject.transform.position = cameraStartPosition;
+        tempEndMarker = playerStartPosition;
+        tempStartMarker = tempEndMarker;
+        tempStartTime = Time.time;
+        movementLock = false;
+        backStepCount = 0;
     }
 
     private void OnCollisionEnter(Collision other)
