@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 3430605748151235736}
   - {fileID: 6777280620590251181}
-  - {fileID: 8839333576771110821}
+  - {fileID: 6766129075362049616}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -276,7 +276,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &6533771644964612738
+--- !u!1 &8410270322715795194
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -284,8 +284,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8839333576771110821}
-  - component: {fileID: 7373451835246148648}
+  - component: {fileID: 6766129075362049616}
+  - component: {fileID: 5408302374085643749}
   m_Layer: 0
   m_Name: ObstacleGenerator
   m_TagString: Untagged
@@ -293,13 +293,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8839333576771110821
+--- !u!4 &6766129075362049616
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6533771644964612738}
+  m_GameObject: {fileID: 8410270322715795194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -307,13 +307,13 @@ Transform:
   m_Father: {fileID: 99281297399055761}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7373451835246148648
+--- !u!114 &5408302374085643749
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6533771644964612738}
+  m_GameObject: {fileID: 8410270322715795194}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f3d2333df318254f8155031a9417395, type: 3}
