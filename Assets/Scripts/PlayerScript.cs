@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     private Vector3 playerStartPosition;
+    private Vector3 cameraStartPosition;
+    private Vector3 modelStartPosition = Vector3.zero;
 
     private Vector3 tempStartMarker;
     private Vector3 tempEndMarker;  //movement stuff
@@ -30,9 +32,10 @@ public class PlayerScript : MonoBehaviour
         bool temp2 = SetPlayerMovementSpeed(3.5f);
         CalculateActualMoveSpeed();
 
-        playerStartPosition = this.gameObject.transform.position;
-
-        tempEndMarker = new Vector3(0.0f, 0.0f, 0.0f);
+        SetStarts();
+        
+        tempEndMarker = playerStartPosition;
+        tempStartMarker = tempEndMarker;
         tempStartTime = Time.time;
         movementLock = false;
 
@@ -80,8 +83,23 @@ public class PlayerScript : MonoBehaviour
                 tempEndMarker = tempStartMarker;
             }
         }
-
+        PlayerFallingOffTheWorld();
         
+    }
+
+    private void SetStarts()
+    {
+        playerStartPosition = this.gameObject.transform.position;
+        cameraStartPosition;
+    }
+
+    private void PlayerFallingOffTheWorld()
+    {
+        GameObject temp = GetComponentInChildren<Rigidbody>().gameObject;
+        if (temp.transform.position.y <= -worldGridSize)
+        {
+            ResetPosition();
+        }
     }
 
     public bool SetWorldGridSide(float gridSize)  //Set the worldgrid dimensions, must be a
@@ -122,7 +140,7 @@ public class PlayerScript : MonoBehaviour
         return internalPlayerSpeed;
     }
     
-   public void StepSide(bool clear)
+    public void StepSide(bool clear)
     {
         if (clear)
         {
@@ -175,6 +193,7 @@ public class PlayerScript : MonoBehaviour
     private void ResetPosition()
     {
         this.gameObject.transform.position = playerStartPosition;
+        this.gameObject.GetComponentInChildren<Rigidbody>().gameObject.transform.position = Vector3.zero;
     }
 
     
