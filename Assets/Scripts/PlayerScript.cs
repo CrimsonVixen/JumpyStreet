@@ -21,7 +21,9 @@ public class PlayerScript : MonoBehaviour
     private int backStepCount;
 
     //Scoring stuff
-    private int score;      
+    private int score;
+    public HighScoreManager HighScoreManager;
+    public UIScript UIScript;
     //Cant Create new HighScoreManager or UIScript objects because they are monobehavior classes
     //HighScoreManager scoreManager = new HighScoreManager();
     //UIScript UIManager = new UIScript();
@@ -51,6 +53,7 @@ public class PlayerScript : MonoBehaviour
             tempEndMarker.z += worldGridSize;
             tempStartTime = Time.time;
             movementLock = true;
+            score += 10;
         }
         if (Input.GetKeyDown("down") && !movementLock)
         {
@@ -150,7 +153,8 @@ public class PlayerScript : MonoBehaviour
         {
             //game over
             //do score stuff
-            //scoreManager.OnGameEnd(score);
+            //HighScoreManager.OnGameEnd(score);
+            //UIScript.GameOver(score);
         }
     }
 
@@ -164,8 +168,8 @@ public class PlayerScript : MonoBehaviour
         else
         {
             //game over
-            //do score stuff
-            //scoreManager.OnGameEnd(score);
+            //HighScoreManager.OnGameEnd(score);
+            //UIScript.GameOver(score);
         }
     }
 
@@ -177,16 +181,15 @@ public class PlayerScript : MonoBehaviour
             if (backStepCount >= 3)
             {
                 //game over
-                //do score stuff
-
-
-                //scoreManager.OnGameEnd(score);
-                //UIManager.GameOver(score);
+                //do score stuff                
+                //HighScoreManager.OnGameEnd(score);
+                //UIScript.GameOver(score);
             }
         }
         else
         {
-
+            //HighScoreManager.OnGameEnd(score);
+            //UIScript.GameOver(score);
         }
     }
 
@@ -196,5 +199,12 @@ public class PlayerScript : MonoBehaviour
         this.gameObject.GetComponentInChildren<Rigidbody>().gameObject.transform.position = Vector3.zero;
     }
 
-    
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Obstacle"))
+        {
+            HighScoreManager.OnGameEnd(score);
+            UIScript.GameOver(score);
+        }
+    }
 }

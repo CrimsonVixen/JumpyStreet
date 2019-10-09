@@ -8,12 +8,34 @@ public class UIScript : MonoBehaviour
 {
     public GameObject gameOverWindow;
     public GameObject scoreText;
+
+    private int score;
+
+    private static UIScript _instance;
+
+    public static UIScript Instance { get { return _instance; } }
+
     private void Awake()
     {
-        if (SceneManager.GetActiveScene().name == "GameScene")
+        if (_instance != null && _instance != this)
         {
-            gameOverWindow = GameObject.FindGameObjectWithTag("GameOverWindow");
-            scoreText = GameObject.FindGameObjectWithTag("ScoreText");
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
+    private void Start()
+    { 
+
+
+        if (SceneManager.GetActiveScene().name == "GameOverScene")
+        {
+            scoreText.GetComponent<Text>().text = score.ToString();
+        }
+        else
+        {
             gameOverWindow.SetActive(false);
         }
     }
@@ -39,10 +61,17 @@ public class UIScript : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void GameOver(int score)
+    public void OnHighScoreButtonClick()
     {
-        gameOverWindow.SetActive(true);
-        scoreText.GetComponent<Text>().text = score.ToString();
+        SceneManager.LoadScene("HighScore");
+    }
+
+    public void GameOver(int scoreToSave)
+    {
+        score = scoreToSave;
+        SceneManager.LoadScene("GameOverScene");
+        //gameOverWindow.SetActive(true);
+        //scoreText.GetComponent<Text>().text = score.ToString();
     }
 
 
