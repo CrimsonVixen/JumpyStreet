@@ -8,7 +8,7 @@ public class ObstacleGenerator : MonoBehaviour
 
     public void Start()
     {
-        for (float i = -19.5F; i < 21; i += 1.5F)
+        for(float i = -19.5F; i < 21; i += 1.5F)
         {
             //Generate obstacles in every space behind the player
             //so player can not leave the platform from going backwards
