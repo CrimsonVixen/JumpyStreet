@@ -5,6 +5,8 @@ using UnityEngine;
 public class GroundGenerator : MonoBehaviour
 {
     public GameObject[] grounds;
+    public GameObject[] obstacles;
+
     public GameObject groundParent;
 
     private int groundsToGenerate = 20;
@@ -24,7 +26,7 @@ public class GroundGenerator : MonoBehaviour
 
     public void GenerateGround()
     {
-        //Generate ground
+        //Generate random ground
         GameObject tempGO1 = grounds[Random.Range(0, grounds.Length - 2)];
         
         //Switch between light and dark variants for grass

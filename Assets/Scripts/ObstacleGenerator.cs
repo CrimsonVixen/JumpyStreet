@@ -8,7 +8,7 @@ public class ObstacleGenerator : MonoBehaviour
 
     public void Start()
     {
-        for(float i = -19.5F; i < 21; i += 1.5F)
+        for (float i = -19.5F; i < 21; i += 1.5F)
         {
             //Generate obstacles in every space behind the player
             //so player can not leave the platform from going backwards
@@ -16,8 +16,8 @@ public class ObstacleGenerator : MonoBehaviour
             {
                 float randomObstacle = Random.value;
                 GameObject tempGO = randomObstacle < 0.1F ? obstacles[Random.Range(1, obstacles.Length)] : obstacles[0];
+                tempGO.transform.position = new Vector3(i, tempGO.transform.position.y, transform.parent.position.z);
                 Instantiate(tempGO, transform.parent, true);
-                tempGO.transform.position = new Vector3(i, tempGO.transform.position.y, transform.parent.transform.position.z);
             }
 
             else
@@ -29,8 +29,8 @@ public class ObstacleGenerator : MonoBehaviour
                 if(i < -6 || i > 6 && random < 0.75F)
                 {
                     GameObject tempGO = randomObstacle < 0.1F ? obstacles[Random.Range(1, obstacles.Length)] : obstacles[0];
+                    tempGO.transform.position = new Vector3(i, tempGO.transform.position.y, transform.parent.position.z);
                     Instantiate(tempGO, transform.parent, true);
-                    tempGO.transform.position = new Vector3(i, tempGO.transform.position.y, transform.parent.transform.position.z);
                 }
 
                 //Generate obstacles for middle part of ground (playable area)
@@ -43,8 +43,8 @@ public class ObstacleGenerator : MonoBehaviour
                     }
 
                     GameObject tempGO = randomObstacle < 0.1F ? obstacles[Random.Range(1, obstacles.Length)] : obstacles[0];
+                    tempGO.transform.position = new Vector3(i, tempGO.transform.position.y, transform.parent.position.z);
                     Instantiate(tempGO, transform.parent, true);
-                    tempGO.transform.position = new Vector3(i, tempGO.transform.position.y, transform.parent.transform.position.z);
                 }
             }
         }
