@@ -54,6 +54,7 @@ public class PlayerScript : MonoBehaviour
             tempStartTime = Time.time;
             movementLock = true;
             score += 10;
+            UIScript.UpdateScore(score);
         }
         if (Input.GetKeyDown("down") && !movementLock)
         {
@@ -204,12 +205,15 @@ public class PlayerScript : MonoBehaviour
         tempStartTime = Time.time;
         movementLock = false;
         backStepCount = 0;
+        score = 0;
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Obstacle"))
         {
+            //Collided with obstacle
+            Debug.Log("Collided with obstacle");
             HighScoreManager.OnGameEnd(score);
             UIScript.GameOver(score);
         }
