@@ -74,5 +74,11 @@ public class UIScript : MonoBehaviour
         //scoreText.GetComponent<Text>().text = score.ToString();
     }
 
+    public void UpdateScore(int score)
+    {
+        scoreText.GetComponent<Text>().text = score.ToString();
+
+    }
+
 
 }
