@@ -11,11 +11,11 @@ public class CarMovement : MonoBehaviour
         transform.Translate(Vector3.down / speed); //Higher speed value = slower movement
 
         //Destroys left spawning cars
-        if(transform.tag == "Left" && transform.position.x > 19)
+        if(transform.tag == "CarLeft" && transform.position.x > 19)
             Destroy(gameObject);
 
         //Destroys right spawning cars
-        else if(transform.tag == "Right" && transform.position.x < -19)
+        else if(transform.tag == "CarRight" && transform.position.x < -19)
             Destroy(gameObject);
     }
 }

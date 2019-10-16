@@ -7,8 +7,10 @@ TagManager:
   - ScoreText
   - GameOverWindow
   - Obstacle
-  - Left
-  - Right
+  - CarLeft
+  - CarRight
+  - LogLeft
+  - LogRight
   layers:
   - Default
   - TransparentFX
