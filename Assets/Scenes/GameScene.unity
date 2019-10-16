@@ -1118,7 +1118,7 @@ Light:
   serializedVersion: 9
   m_Type: 1
   m_Color: {r: 0.990566, g: 0.990566, b: 0.990566, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.38
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1127,7 +1127,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.782
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -1528,6 +1528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverWindow: {fileID: 807539658}
   scoreText: {fileID: 82183134}
+  HighScoreManager: {fileID: 0}
 --- !u!4 &1754221352
 Transform:
   m_ObjectHideFlags: 0
