@@ -54,7 +54,7 @@ public class PlayerScript : MonoBehaviour
             tempStartTime = Time.time;
             movementLock = true;
             score += 10;
-            UIScript.UpdateScore(score);
+            UIScript.Instance.UpdateScore(score);
         }
         if (Input.GetKeyDown("down") && !movementLock)
         {
