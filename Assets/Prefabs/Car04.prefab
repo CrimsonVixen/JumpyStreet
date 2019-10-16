@@ -782,7 +782,7 @@ GameObject:
   - component: {fileID: -960217549844893787}
   m_Layer: 0
   m_Name: Car04
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
