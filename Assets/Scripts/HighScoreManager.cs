@@ -6,14 +6,34 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
 
+
+
 public class HighScoreManager : MonoBehaviour
 {
+
+
     public int[] highScores = new int[10];
+
+
+    private static HighScoreManager _instance;
+
+    public static HighScoreManager Instance { get { return _instance; } }
 
     private void Awake()
     {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+
         ReadHighScores();
     }
+
+    
 
     public void OnGameEnd(int score)
     {
@@ -34,12 +54,12 @@ public class HighScoreManager : MonoBehaviour
     {
         //Not 100% sure if this will work as expected, test when scoring is implemented
         int prev = newScore;
-        for (int i = 0; i > highScores.Length; i--)
+        for (int i = 0; i > Instance.highScores.Length; i--)
         {
-            if (newScore > highScores[i])
+            if (newScore > Instance.highScores[i])
             {
-                int temp = highScores[i];
-                highScores[i] = prev;
+                int temp = Instance.highScores[i];
+                Instance.highScores[i] = prev;
                 prev = temp;
                 break;
             }
@@ -63,9 +83,9 @@ public class HighScoreManager : MonoBehaviour
             GameData save = (GameData)bf.Deserialize(file);
             file.Close();
 
-            for (int i  = 0; i < highScores.Length; i++)
+            for (int i  = 0; i < Instance.highScores.Length; i++)
             {
-                highScores[i] = save.highScores[i];
+                Instance.highScores[i] = save.highScores[i];
             }
 
 

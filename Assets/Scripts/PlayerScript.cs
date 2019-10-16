@@ -215,7 +215,7 @@ public class PlayerScript : MonoBehaviour
             //Collided with obstacle
             Debug.Log("Collided with obstacle");
             HighScoreManager.OnGameEnd(score);
-            UIScript.GameOver(score);
+            UIScript.Instance.GameOver(score);
         }
     }
 }

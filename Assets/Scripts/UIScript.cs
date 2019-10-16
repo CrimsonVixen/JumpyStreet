@@ -9,6 +9,8 @@ public class UIScript : MonoBehaviour
     public GameObject gameOverWindow;
     public GameObject scoreText;
 
+    public HighScoreManager HighScoreManager;
+
     private int score;
 
     private static UIScript _instance;
@@ -79,6 +81,7 @@ public class UIScript : MonoBehaviour
         scoreText.GetComponent<Text>().text = score.ToString();
 
     }
+
 
 
 }
