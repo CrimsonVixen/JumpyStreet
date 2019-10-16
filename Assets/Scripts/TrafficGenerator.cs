@@ -13,7 +13,7 @@ public class TrafficGenerator : MonoBehaviour
     public void Start()
     {
         car = cars[Random.Range(0, cars.Length)]; //Pick random car from array of cars
-        rightSide = Random.value < 0.5 ? true : false; //Spawn on left or right side of road
+        rightSide = Random.value < 0.5F ? true : false; //Spawn on left or right side of road
         StartCoroutine(GenerateTraffic());
     }
 
@@ -30,18 +30,18 @@ public class TrafficGenerator : MonoBehaviour
             {
                 xPos = 19;
                 tempGO.transform.localRotation = Quaternion.Euler(-90, -90, -180);
-                tempGO.tag = "Right";
+                tempGO.tag = "CarRight";
             }
 
             //Spawn on left side
             else
             {
                 xPos = -19;
-                tempGO.tag = "Left";
+                tempGO.tag = "CarLeft";
             }
 
             tempGO.transform.position = new Vector3(xPos, tempGO.transform.position.y, transform.parent.position.z);
-            yield return new WaitForSeconds(Random.Range(2, 5));
+            yield return new WaitForSeconds(Random.Range(2, 6));
         }
     }
 }
