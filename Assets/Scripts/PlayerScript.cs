@@ -217,5 +217,31 @@ public class PlayerScript : MonoBehaviour
             HighScoreManager.OnGameEnd(score);
             UIScript.Instance.GameOver(score);
         }
+
+        //Player moves onto a log
+        if(other.gameObject.CompareTag("PlayerContainer"))
+        {
+            transform.SetParent(other.transform);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        //While Player is on a log
+        if(other.gameObject.CompareTag("PlayerContainer"))
+        {
+            float tempX = transform.position.x - (transform.position.x % 1.5F);
+            tempEndMarker.x = tempX;
+            tempStartMarker.x = tempX;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        //Player leaves a log
+        if(other.gameObject.CompareTag("PlayerContainer"))
+        {
+            transform.SetParent(null);
+        }
     }
 }

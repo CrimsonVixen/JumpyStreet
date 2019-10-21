@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 734631075720297781}
   - component: {fileID: 8848634848969148817}
   - component: {fileID: 4214947124989622425}
-  - component: {fileID: 575699769702252874}
   m_Layer: 0
   m_Name: Rock02
   m_TagString: Untagged
@@ -28,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6994304486648331977}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.5, y: 0.8, z: 34.5}
+  m_LocalPosition: {x: -10.5, y: 0.8, z: 54}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children: []
   m_Father: {fileID: 0}
@@ -92,19 +91,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.06060637, y: 0.049965564, z: 0.049999997}
   m_Center: {x: 0.0053031873, y: 0.0099827815, z: 0}
---- !u!54 &575699769702252874
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6994304486648331977}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
