@@ -217,5 +217,20 @@ public class PlayerScript : MonoBehaviour
             HighScoreManager.OnGameEnd(score);
             UIScript.Instance.GameOver(score);
         }
+
+        if(other.gameObject.CompareTag("PlayerContainer"))
+        {
+            transform.SetParent(other.transform);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.CompareTag("PlayerContainer"))
+        {
+            transform.SetParent(null);
+            print(transform.localPosition);
+            print(transform.position);
+        }
     }
 }
