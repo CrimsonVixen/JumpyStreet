@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 152597182}
   - component: {fileID: 152597181}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameOverSceneManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -489,7 +489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverWindow: {fileID: 816326693}
   scoreText: {fileID: 962007246}
-  HighScoreManager: {fileID: 0}
+  HighScoreManager: {fileID: 80759008}
 --- !u!4 &1004614996
 Transform:
   m_ObjectHideFlags: 0
