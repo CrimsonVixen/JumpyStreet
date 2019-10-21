@@ -9,7 +9,7 @@ public class UIScript : MonoBehaviour
     public GameObject gameOverWindow;
     public GameObject scoreText;
 
-    public HighScoreManager HighScoreManager;
+    public GameObject HighScoreManager;
 
     private int score;
 
@@ -28,10 +28,8 @@ public class UIScript : MonoBehaviour
             _instance = this;
         }
     }
-    private void Start()
-    { 
-
-
+    private void Update()
+    {
         if (SceneManager.GetActiveScene().name == "GameOverScene")
         {
             scoreText.GetComponent<Text>().text = score.ToString();
