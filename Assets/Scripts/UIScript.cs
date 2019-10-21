@@ -6,8 +6,10 @@ using UnityEngine.UI;
 
 public class UIScript : MonoBehaviour
 {
-    public GameObject gameOverWindow;
+    public GameObject scorePanel;
     public GameObject scoreText;
+    public GameObject gameOverWindow;
+    public GameObject gameOverScoreText;
 
     public GameObject HighScoreManager;
 
@@ -27,18 +29,10 @@ public class UIScript : MonoBehaviour
         {
             _instance = this;
         }
-    }
-    private void Update()
-    {
-        if (SceneManager.GetActiveScene().name == "GameOverScene")
-        {
-            scoreText.GetComponent<Text>().text = score.ToString();
-        }
-        else
-        {
-            gameOverWindow.SetActive(false);
-        }
-    }
+
+        scorePanel.SetActive(true);
+        gameOverWindow.SetActive(false);
+    }    
 
     public void OnStartButtonClick()
     {
@@ -69,9 +63,9 @@ public class UIScript : MonoBehaviour
     public void GameOver(int scoreToSave)
     {
         score = scoreToSave;
-        SceneManager.LoadScene("GameOverScene");
-        //gameOverWindow.SetActive(true);
-        //scoreText.GetComponent<Text>().text = score.ToString();
+        gameOverWindow.SetActive(true);
+        scorePanel.SetActive(false);
+        gameOverScoreText.GetComponent<Text>().text = scoreToSave.ToString();
     }
 
     public void UpdateScore(int score)
