@@ -2319,9 +2319,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7022788615173885454}
-  - component: {fileID: 1208565394948445040}
   - component: {fileID: 14216560451408219}
   - component: {fileID: -7376896802380240350}
+  - component: {fileID: 1208565394948445040}
   m_Layer: 0
   m_Name: Car08
   m_TagString: Obstacle
@@ -2376,19 +2376,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 90}
---- !u!114 &1208565394948445040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6282148545681046557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d94184af143c36f4cbed21c1322b50b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 7
 --- !u!65 &14216560451408219
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2397,7 +2384,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6282148545681046557}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2418,6 +2405,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 124
   m_CollisionDetection: 0
+--- !u!114 &1208565394948445040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6282148545681046557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d94184af143c36f4cbed21c1322b50b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 7
 --- !u!1 &7763988125255961735
 GameObject:
   m_ObjectHideFlags: 0

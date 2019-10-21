@@ -210,7 +210,9 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Obstacle"))
+        Debug.Log("TriggerEntered");
+
+        if (other.gameObject.CompareTag("CarLeft") || other.gameObject.CompareTag("CarRight"))
         {
             //Collided with obstacle
             Debug.Log("Collided with obstacle");
@@ -222,6 +224,11 @@ public class PlayerScript : MonoBehaviour
         {
             transform.SetParent(other.transform);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //Debug.Log("ColliderEntered");
     }
 
     private void OnTriggerExit(Collider other)
