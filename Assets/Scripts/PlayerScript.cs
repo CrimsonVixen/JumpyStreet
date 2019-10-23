@@ -55,6 +55,7 @@ public class PlayerScript : MonoBehaviour
             movementLock = true;
             score += 10;
             UIScript.Instance.UpdateScore(score);
+            Debug.DrawRay(this.transform.position, Vector3.forward, Color.red, 0.5f);
         }
         if (Input.GetKeyDown("down") && !movementLock)
         {
@@ -104,6 +105,8 @@ public class PlayerScript : MonoBehaviour
         if (temp.transform.position.y <= -worldGridSize)
         {
             ResetPosition();
+            HighScoreManager.OnGameEnd(score);
+            UIScript.Instance.GameOver(score);
         }
     }
 
@@ -182,16 +185,14 @@ public class PlayerScript : MonoBehaviour
             backStepCount++;
             if (backStepCount >= 3)
             {
-                //game over
-                //do score stuff                
-                //HighScoreManager.OnGameEnd(score);
-                //UIScript.GameOver(score);
+                HighScoreManager.OnGameEnd(score);
+                UIScript.Instance.GameOver(score);
+                ResetPosition();
             }
         }
         else
         {
-            //HighScoreManager.OnGameEnd(score);
-            //UIScript.GameOver(score);
+            
         }
     }
 
@@ -215,9 +216,9 @@ public class PlayerScript : MonoBehaviour
         if (other.gameObject.CompareTag("CarLeft") || other.gameObject.CompareTag("CarRight"))
         {
             //Collided with obstacle
-            Debug.Log("Collided with obstacle");
             HighScoreManager.OnGameEnd(score);
             UIScript.Instance.GameOver(score);
+            ResetPosition();
         }
 
         if(other.gameObject.CompareTag("PlayerContainer"))
@@ -236,8 +237,6 @@ public class PlayerScript : MonoBehaviour
         if(other.gameObject.CompareTag("PlayerContainer"))
         {
             transform.SetParent(null);
-            print(transform.localPosition);
-            print(transform.position);
         }
     }
 }
