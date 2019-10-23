@@ -15,9 +15,8 @@ public class ObstacleGenerator : MonoBehaviour
             if(transform.position.z < 0)
             {
                 float randomObstacle = Random.value;
-                GameObject tempGO = randomObstacle < 0.1F ? obstacles[Random.Range(1, obstacles.Length)] : obstacles[0];
+                GameObject tempGO = Instantiate(randomObstacle < 0.1F ? obstacles[Random.Range(1, obstacles.Length)] : obstacles[0], transform.parent, true);
                 tempGO.transform.position = new Vector3(i, tempGO.transform.position.y, transform.parent.position.z);
-                Instantiate(tempGO, transform.parent, true);
             }
 
             else
@@ -28,9 +27,8 @@ public class ObstacleGenerator : MonoBehaviour
                 //Generate obstacles for left and right side of ground
                 if(i < -6 || i > 6 && random < 0.75F)
                 {
-                    GameObject tempGO = randomObstacle < 0.1F ? obstacles[Random.Range(1, obstacles.Length)] : obstacles[0];
+                    GameObject tempGO = Instantiate(randomObstacle < 0.1F ? obstacles[Random.Range(1, obstacles.Length)] : obstacles[0], transform.parent, true);
                     tempGO.transform.position = new Vector3(i, tempGO.transform.position.y, transform.parent.position.z);
-                    Instantiate(tempGO, transform.parent, true);
                 }
 
                 //Generate obstacles for middle part of ground (playable area)
@@ -42,9 +40,8 @@ public class ObstacleGenerator : MonoBehaviour
                         return;
                     }
 
-                    GameObject tempGO = randomObstacle < 0.1F ? obstacles[Random.Range(1, obstacles.Length)] : obstacles[0];
+                    GameObject tempGO = Instantiate(randomObstacle < 0.1F ? obstacles[Random.Range(1, obstacles.Length)] : obstacles[0], transform.parent, true);
                     tempGO.transform.position = new Vector3(i, tempGO.transform.position.y, transform.parent.position.z);
-                    Instantiate(tempGO, transform.parent, true);
                 }
             }
         }
