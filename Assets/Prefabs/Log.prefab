@@ -30,7 +30,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 1, z: 0.9}
-  m_Children: [{fileID: 6480660769576853137}]
+  m_Children:
+  - {fileID: 6480660769576853137}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -90,8 +91,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.0287924, z: 1}
+  m_Center: {x: 0, y: 0.014396191, z: 0}
 --- !u!114 &7072877347858066078
 MonoBehaviour:
   m_ObjectHideFlags: 0
