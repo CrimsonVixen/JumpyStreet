@@ -235,7 +235,7 @@ public class PlayerScript : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         //While Player is on a log
-        if(other.gameObject.CompareTag("PlayerContainer"))
+        if(other.gameObject.CompareTag("PlayerContainer") && !movementLock)
         {
             float tempX = transform.position.x - (transform.position.x % 1.5F);
             tempEndMarker.x = tempX;
