@@ -220,7 +220,8 @@ public class PlayerScript : MonoBehaviour
             UIScript.Instance.GameOver(score);
             ResetPosition();
         }
-
+        
+        //Player moves onto a log
         if(other.gameObject.CompareTag("PlayerContainer"))
         {
             transform.SetParent(other.transform);
@@ -232,8 +233,20 @@ public class PlayerScript : MonoBehaviour
         //Debug.Log("ColliderEntered");
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        //While Player is on a log
+        if(other.gameObject.CompareTag("PlayerContainer"))
+        {
+            float tempX = transform.position.x - (transform.position.x % 1.5F);
+            tempEndMarker.x = tempX;
+            tempStartMarker.x = tempX;
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
+        //Player leaves a log
         if(other.gameObject.CompareTag("PlayerContainer"))
         {
             transform.SetParent(null);
