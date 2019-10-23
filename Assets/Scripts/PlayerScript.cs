@@ -212,10 +212,12 @@ public class PlayerScript : MonoBehaviour
     {
         Debug.Log("TriggerEntered");
 
-        if (other.gameObject.CompareTag("CarLeft") || other.gameObject.CompareTag("CarRight"))
+        if (other.gameObject.CompareTag("CarLeft") || other.gameObject.CompareTag("CarRight") || other.gameObject.CompareTag("Obstacle"))
         {
             //Collided with obstacle
             Debug.Log("Collided with obstacle");
+            SetPlayerMovementSpeed(0.0f);
+            internalPlayerSpeed = 0.0f;
             HighScoreManager.OnGameEnd(score);
             UIScript.Instance.GameOver(score);
         }
