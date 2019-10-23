@@ -56,6 +56,7 @@ public class PlayerScript : MonoBehaviour
             score += 10;
             UIScript.Instance.UpdateScore(score);
             Debug.DrawRay(this.transform.position, Vector3.forward, Color.red, 0.5f);
+            GroundGenerator.instance.GenerateGround();
         }
         if (Input.GetKeyDown("down") && !movementLock)
         {
