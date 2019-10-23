@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GroundGenerator : MonoBehaviour
 {
+    public static GroundGenerator instance;
+
     public GameObject[] grounds;
 
     public GameObject groundParent;
@@ -13,6 +15,11 @@ public class GroundGenerator : MonoBehaviour
     private float groundPosition = 9;
 
     private bool useLightGrass = false;
+
+    public void Awake()
+    {
+        instance = this;
+    }
 
     public void Start()
     {

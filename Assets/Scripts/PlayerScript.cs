@@ -55,6 +55,8 @@ public class PlayerScript : MonoBehaviour
             movementLock = true;
             score += 10;
             UIScript.Instance.UpdateScore(score);
+            Debug.DrawRay(this.transform.position, Vector3.forward, Color.red, 0.5f);
+            GroundGenerator.instance.GenerateGround();
         }
         if (Input.GetKeyDown("down") && !movementLock)
         {
@@ -104,6 +106,8 @@ public class PlayerScript : MonoBehaviour
         if (temp.transform.position.y <= -worldGridSize)
         {
             ResetPosition();
+            HighScoreManager.OnGameEnd(score);
+            UIScript.Instance.GameOver(score);
         }
     }
 
@@ -182,16 +186,14 @@ public class PlayerScript : MonoBehaviour
             backStepCount++;
             if (backStepCount >= 3)
             {
-                //game over
-                //do score stuff                
-                //HighScoreManager.OnGameEnd(score);
-                //UIScript.GameOver(score);
+                HighScoreManager.OnGameEnd(score);
+                UIScript.Instance.GameOver(score);
+                ResetPosition();
             }
         }
         else
         {
-            //HighScoreManager.OnGameEnd(score);
-            //UIScript.GameOver(score);
+            
         }
     }
 
@@ -220,8 +222,10 @@ public class PlayerScript : MonoBehaviour
             internalPlayerSpeed = 0.0f;
             HighScoreManager.OnGameEnd(score);
             UIScript.Instance.GameOver(score);
+            ResetPosition();
         }
-
+        
+        //Player moves onto a log
         if(other.gameObject.CompareTag("PlayerContainer"))
         {
             transform.SetParent(other.transform);
@@ -233,13 +237,23 @@ public class PlayerScript : MonoBehaviour
         //Debug.Log("ColliderEntered");
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        //While Player is on a log
+        if(other.gameObject.CompareTag("PlayerContainer") && !movementLock)
+        {
+            float tempX = transform.position.x - (transform.position.x % 1.5F);
+            tempEndMarker.x = tempX;
+            tempStartMarker.x = tempX;
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
+        //Player leaves a log
         if(other.gameObject.CompareTag("PlayerContainer"))
         {
             transform.SetParent(null);
-            print(transform.localPosition);
-            print(transform.position);
         }
     }
 }
