@@ -50,28 +50,37 @@ public class PlayerScript : MonoBehaviour
     {
         if (Input.GetKeyDown("up") && !movementLock)
         {
+            Debug.DrawRay(this.gameObject.transform.position, new Vector3(0.0f, 0.0f, worldGridSize), Color.red, 0.5f);
+            bool temp = Physics.Raycast(this.gameObject.transform.position, new Vector3(0.0f, 0.0f, worldGridSize), worldGridSize);
+            Debug.Log(temp);
+
             tempEndMarker.z += worldGridSize;
             tempStartTime = Time.time;
             movementLock = true;
             score += 10;
             UIScript.Instance.UpdateScore(score);
-            Debug.DrawRay(this.transform.position, Vector3.forward, Color.red, 0.5f);
             GroundGenerator.instance.GenerateGround();
         }
         if (Input.GetKeyDown("down") && !movementLock)
         {
+            Debug.DrawRay(this.gameObject.transform.position, new Vector3(0.0f, 0.0f, -worldGridSize), Color.red, 0.5f);
+
             tempEndMarker.z -= worldGridSize;
             tempStartTime = Time.time;
             movementLock = true;
         }
         if (Input.GetKeyDown("left") && !movementLock)
         {
+            Debug.DrawRay(this.gameObject.transform.position, new Vector3(-worldGridSize, 0.0f, 0.0f), Color.red, 0.5f);
+
             tempEndMarker.x -= worldGridSize;
             tempStartTime = Time.time;
             movementLock = true;
         }
         if (Input.GetKeyDown("right") && !movementLock)
         {
+            Debug.DrawRay(this.gameObject.transform.position, new Vector3(worldGridSize, 0.0f, 0.0f), Color.red, 0.5f);
+
             tempEndMarker.x += worldGridSize;
             tempStartTime = Time.time;
             movementLock = true;
@@ -212,7 +221,7 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("TriggerEntered");
+        //Debug.Log("TriggerEntered");
 
         if (other.gameObject.CompareTag("CarLeft") || other.gameObject.CompareTag("CarRight"))
         {
