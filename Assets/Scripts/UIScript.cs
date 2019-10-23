@@ -70,7 +70,7 @@ public class UIScript : MonoBehaviour
 
     public void UpdateScore(int score)
     {
-        scoreText.GetComponent<Text>().text = score.ToString();
+        scoreText.GetComponent<Text>().text = "Score: " + score.ToString();
 
     }
 
