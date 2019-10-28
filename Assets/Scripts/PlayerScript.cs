@@ -60,6 +60,11 @@ public class PlayerScript : MonoBehaviour
             score += 10;
             UIScript.Instance.UpdateScore(score);
             GroundGenerator.instance.GenerateGround();
+
+            if(transform.position.z >= 12)
+            {
+                Destroy(GroundGenerator.instance.groundParent.transform.GetChild(0).gameObject);
+            }
         }
         if (Input.GetKeyDown("down") && !movementLock)
         {
