@@ -30,8 +30,11 @@ public class UIScript : MonoBehaviour
             _instance = this;
         }
 
-        scorePanel.SetActive(true);
-        gameOverWindow.SetActive(false);
+        if(SceneManager.GetActiveScene().name == "GameScene")
+        {
+            scorePanel.SetActive(true);
+            gameOverWindow.SetActive(false);
+        }
     }    
 
     public void OnStartButtonClick()
