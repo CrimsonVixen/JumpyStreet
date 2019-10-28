@@ -10,10 +10,13 @@ public class UIScript : MonoBehaviour
     public GameObject scoreText;
     public GameObject gameOverWindow;
     public GameObject gameOverScoreText;
+    public GameObject highScoreTable;
 
     public GameObject HighScoreManager;
 
     private int score;
+    private string highScoreString;
+    private List<int> highScores = new List<int>();
 
     private static UIScript _instance;
 
@@ -32,6 +35,10 @@ public class UIScript : MonoBehaviour
 
         scorePanel.SetActive(true);
         gameOverWindow.SetActive(false);
+        for (int i = 0; i < 10; i++)
+        {
+            highScores.Add(HighScoreManager.GetComponent<HighScoreManager>().highScores[i]);
+        }
     }    
 
     public void OnStartButtonClick()
@@ -66,6 +73,18 @@ public class UIScript : MonoBehaviour
         gameOverWindow.SetActive(true);
         scorePanel.SetActive(false);
         gameOverScoreText.GetComponent<Text>().text = scoreToSave.ToString();
+        for (int i = 0; i < 10; i++)
+        {
+            if (highScores[i] < scoreToSave)
+            {
+                highScores.Add(scoreToSave);                
+            }
+        }
+        highScores.Sort();
+        foreach (int i in highScores)
+        {
+            highScoreTable.GetComponent<Text>().text = i.ToString();
+        }
     }
 
     public void UpdateScore(int score)
