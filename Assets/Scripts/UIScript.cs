@@ -33,11 +33,17 @@ public class UIScript : MonoBehaviour
             _instance = this;
         }
 
+
         scorePanel.SetActive(true);
         gameOverWindow.SetActive(false);
         for (int i = 0; i < 10; i++)
         {
             highScores.Add(HighScoreManager.GetComponent<HighScoreManager>().highScores[i]);
+
+        if(SceneManager.GetActiveScene().name == "GameScene")
+        {
+            scorePanel.SetActive(true);
+            gameOverWindow.SetActive(false);
         }
     }    
 
