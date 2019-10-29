@@ -5,20 +5,13 @@ using UnityEngine.UI;
 
 public class GameOverSceneScript : MonoBehaviour
 {
-    public HighScoreManager HighScoreManager;
-    public UIScript UIScript;
-
     public Text highScoreTable;
 
-
-
-    void Awake()
+    public void Awake()
     {
         for (int i = 0; i < 10; i++)
         {
-            highScoreTable.text = HighScoreManager.Instance.highScores[i].ToString();
+            highScoreTable.text = HighScoreManager._instance.highScores[i].ToString();
         }
     }
-
-    
 }

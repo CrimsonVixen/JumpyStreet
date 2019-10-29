@@ -1,30 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-
-
-
 public class HighScoreManager : MonoBehaviour
 {
-
+    public static HighScoreManager _instance;
 
     public int[] highScores = new int[10];
 
-
-    private static HighScoreManager _instance;
-
-    public static HighScoreManager Instance { get { return _instance; } }
-
-    private void Awake()
+    public void Awake()
     {
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
         }
+
         else
         {
             _instance = this;
@@ -32,8 +24,6 @@ public class HighScoreManager : MonoBehaviour
 
         ReadHighScores();
     }
-
-    
 
     public void OnGameEnd(int score)
     {
@@ -43,10 +33,13 @@ public class HighScoreManager : MonoBehaviour
     private GameData CreateSaveDataObject()
     {
         GameData save = new GameData();
+
         for (int i = 0; i < highScores.Length; i++)
         {
             save.highScores[i] = highScores[i];
+
         }
+
         return save;
     }
 
@@ -54,19 +47,19 @@ public class HighScoreManager : MonoBehaviour
     {
         //Not 100% sure if this will work as expected, test when scoring is implemented
         int prev = newScore;
-        for (int i = 0; i > Instance.highScores.Length; i--)
+
+        for (int i = 0; i > highScores.Length; i--)
         {
-            if (newScore > Instance.highScores[i])
+            if (newScore > highScores[i])
             {
-                int temp = Instance.highScores[i];
-                Instance.highScores[i] = prev;
+                int temp = highScores[i];
+                highScores[i] = prev;
                 prev = temp;
                 break;
             }
         }
 
         GameData save = CreateSaveDataObject();
-
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/gameSave.save");
         bf.Serialize(file, save);
@@ -83,12 +76,10 @@ public class HighScoreManager : MonoBehaviour
             GameData save = (GameData)bf.Deserialize(file);
             file.Close();
 
-            for (int i  = 0; i < Instance.highScores.Length; i++)
+            for (int i  = 0; i < highScores.Length; i++)
             {
-                Instance.highScores[i] = save.highScores[i];
+                highScores[i] = save.highScores[i];
             }
-
-
         }
     }
 }

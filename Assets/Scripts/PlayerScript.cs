@@ -52,13 +52,13 @@ public class PlayerScript : MonoBehaviour
         {
             Debug.DrawRay(this.gameObject.transform.position, new Vector3(0.0f, 0.0f, worldGridSize), Color.red, 0.5f);
             bool temp = Physics.Raycast(this.gameObject.transform.position, new Vector3(0.0f, 0.0f, worldGridSize), worldGridSize);
-            Debug.Log(temp);
+            //Debug.Log(temp);
 
             tempEndMarker.z += worldGridSize;
             tempStartTime = Time.time;
             movementLock = true;
             score += 10;
-            UIScript.Instance.UpdateScore(score);
+            UIScript._instance.UpdateScore(score);
             GroundGenerator.instance.GenerateGround();
 
             if(transform.position.z >= 12)
@@ -121,7 +121,7 @@ public class PlayerScript : MonoBehaviour
         {
             ResetPosition();
             HighScoreManager.OnGameEnd(score);
-            UIScript.Instance.GameOver(score);
+            UIScript._instance.GameOver(score);
         }
     }
 
@@ -201,7 +201,7 @@ public class PlayerScript : MonoBehaviour
             if (backStepCount >= 3)
             {
                 HighScoreManager.OnGameEnd(score);
-                UIScript.Instance.GameOver(score);
+                UIScript._instance.GameOver(score);
                 ResetPosition();
             }
         }
@@ -235,7 +235,7 @@ public class PlayerScript : MonoBehaviour
             SetPlayerMovementSpeed(0.0f);
             internalPlayerSpeed = 0.0f;
             HighScoreManager.OnGameEnd(score);
-            UIScript.Instance.GameOver(score);
+            UIScript._instance.GameOver(score);
             ResetPosition();
         }
         
