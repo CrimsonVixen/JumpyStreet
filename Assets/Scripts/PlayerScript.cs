@@ -221,10 +221,11 @@ public class PlayerScript : MonoBehaviour
         if(other.gameObject.CompareTag("CarLeft") || other.gameObject.CompareTag("CarRight") || other.gameObject.CompareTag("Obstacle"))
         {
             //Collided with obstacle
-            Debug.Log("Collided with obstacle");
+            //Debug.Log("Collided with obstacle");
             SetPlayerMovementSpeed(0.0f);
             internalPlayerSpeed = 0.0f;
             Destroy(GetComponent<Rigidbody>());
+            Camera.main.transform.SetParent(null);
             HighScoreManager.OnGameEnd(score);
             UIScript._instance.GameOver(score);
             //ResetPosition();
