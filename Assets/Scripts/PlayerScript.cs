@@ -73,6 +73,8 @@ public class PlayerScript : MonoBehaviour
             tempEndMarker.z -= worldGridSize;
             tempStartTime = Time.time;
             movementLock = true;
+            score -= 10;
+            UIScript._instance.UpdateScore(score);
         }
         if (Input.GetKeyDown("left") && !movementLock)
         {
