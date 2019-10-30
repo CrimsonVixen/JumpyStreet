@@ -5,55 +5,37 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     private Vector3 playerStartPosition;
-    private Vector3 cameraStartPosition;
-    private Vector3 modelStartPosition = Vector3.zero;
 
+    //movement stuff
     private Vector3 tempStartMarker;
-    private Vector3 tempEndMarker;  //movement stuff
+    private Vector3 tempEndMarker;
     private float tempStartTime;
     private bool movementLock;
-    //private float distCovered;
-    //private float fractionOfJourney;
 
     protected float worldGridSize;  //world grid, tile size in unity units
     protected float playerMovementSpeed;  //player movement speed in world grids per second
     private float internalPlayerSpeed;  //player movement speed in units per seconds
-    private int backStepCount;
 
     //Scoring stuff
-    private int score;
-    public HighScoreManager HighScoreManager;
-    public UIScript UIScript;
-    //Cant Create new HighScoreManager or UIScript objects because they are monobehavior classes
-    //HighScoreManager scoreManager = new HighScoreManager();
-    //UIScript UIManager = new UIScript();
+    private int score = 0;
     
     public void Start()
     {
-        bool temp1 = SetWorldGridSide(1.5f);
-        bool temp2 = SetPlayerMovementSpeed(3.5f);
+        SetWorldGridSide(1.5f);
+        SetPlayerMovementSpeed(3.5f);
         CalculateActualMoveSpeed();
 
-        SetStarts();
-        
+        playerStartPosition = transform.position;
         tempEndMarker = playerStartPosition;
         tempStartMarker = tempEndMarker;
         tempStartTime = Time.time;
-        movementLock = false;
-
-        backStepCount = 0;
-
-        score = 0;        
+        movementLock = false;       
     }
 
     public void Update()
     {
-        if (Input.GetKeyDown("up") && !movementLock)
+        if(Input.GetKeyDown("up") && !movementLock)
         {
-            Debug.DrawRay(this.gameObject.transform.position, new Vector3(0.0f, 0.0f, worldGridSize), Color.red, 0.5f);
-            bool temp = Physics.Raycast(this.gameObject.transform.position, new Vector3(0.0f, 0.0f, worldGridSize), worldGridSize);
-            //Debug.Log(temp);
-
             tempEndMarker.z += worldGridSize;
             tempStartTime = Time.time;
             movementLock = true;
@@ -66,62 +48,53 @@ public class PlayerScript : MonoBehaviour
                 Destroy(GroundGenerator.instance.groundParent.transform.GetChild(0).gameObject);
             }
         }
-        if (Input.GetKeyDown("down") && !movementLock)
-        {
-            Debug.DrawRay(this.gameObject.transform.position, new Vector3(0.0f, 0.0f, -worldGridSize), Color.red, 0.5f);
 
+        if(Input.GetKeyDown("down") && !movementLock)
+        {
             tempEndMarker.z -= worldGridSize;
             tempStartTime = Time.time;
             movementLock = true;
             score -= 10;
             UIScript._instance.UpdateScore(score);
         }
-        if (Input.GetKeyDown("left") && !movementLock)
-        {
-            Debug.DrawRay(this.gameObject.transform.position, new Vector3(-worldGridSize, 0.0f, 0.0f), Color.red, 0.5f);
 
+        if(Input.GetKeyDown("left") && !movementLock)
+        {
             tempEndMarker.x -= worldGridSize;
             tempStartTime = Time.time;
             movementLock = true;
         }
-        if (Input.GetKeyDown("right") && !movementLock)
-        {
-            Debug.DrawRay(this.gameObject.transform.position, new Vector3(worldGridSize, 0.0f, 0.0f), Color.red, 0.5f);
 
+        if(Input.GetKeyDown("right") && !movementLock)
+        {
             tempEndMarker.x += worldGridSize;
             tempStartTime = Time.time;
             movementLock = true;
         }
 
-        if (movementLock)
+        if(movementLock)
         {
             float distCovered = (Time.time - tempStartTime) * internalPlayerSpeed;
             float fractionOfJourney = distCovered / worldGridSize;
-            this.gameObject.transform.position = Vector3.Lerp(tempStartMarker, tempEndMarker, fractionOfJourney);
-            if (transform.position == tempEndMarker)
+            transform.position = Vector3.Lerp(tempStartMarker, tempEndMarker, fractionOfJourney);
+
+            if(transform.position == tempEndMarker)
             {
                 movementLock = !movementLock;
-                tempStartMarker = this.gameObject.transform.position;
+                tempStartMarker = transform.position;
                 tempEndMarker = tempStartMarker;
             }
         }
-        
-    }
-
-    private void SetStarts()
-    {
-        playerStartPosition = this.gameObject.transform.position;
-        cameraStartPosition = this.gameObject.GetComponentInChildren<Camera>().gameObject.transform.position;
-        modelStartPosition = this.gameObject.GetComponentInChildren<Rigidbody>().gameObject.transform.position;
     }
 
     public bool SetWorldGridSide(float gridSize)  //Set the worldgrid dimensions, must be a
     {                                             //positive number, else will default to 1.5f
-        if (gridSize > 0.0f)                      //and return false.
+        if(gridSize > 0.0f)                       //and return false.
         {
             worldGridSize = gridSize;
             return true;
         }
+
         else
         {
             worldGridSize = 1.5f;
@@ -131,11 +104,12 @@ public class PlayerScript : MonoBehaviour
 
     public bool SetPlayerMovementSpeed(float moveSpeed)  //Set the player move speed, must be a
     {                                                    //positive number, else will default to 1.0f
-        if (moveSpeed > 0.0f)                            //and return false.
+        if(moveSpeed > 0.0f)                             //and return false.
         {
             playerMovementSpeed = moveSpeed;
             return true;
         }
+
         else
         {
             playerMovementSpeed = 1.0f;
@@ -146,89 +120,19 @@ public class PlayerScript : MonoBehaviour
     private void CalculateActualMoveSpeed()
     {
         internalPlayerSpeed = worldGridSize * playerMovementSpeed;  //adjusts movement speed based on
-    }                                                               //tile size.
-    
-    private float GetPlayerActualMoveSpeed()
-    {
-        return internalPlayerSpeed;
-    }
-    
-    public void StepSide(bool clear)
-    {
-        if (clear)
-        {
-            //move side
-        }
-        else
-        {
-            //game over
-            //do score stuff
-            //HighScoreManager.OnGameEnd(score);
-            //UIScript.GameOver(score);
-        }
-    }
-
-    public void StepForward(bool clear)
-    {
-        if (clear)
-        {
-            //move forward
-            score += 10;
-        }
-        else
-        {
-            //game over
-            //HighScoreManager.OnGameEnd(score);
-            //UIScript.GameOver(score);
-        }
-    }
-
-    public void StepBack(bool clear)
-    {
-        if (clear)
-        {
-            backStepCount++;
-            if (backStepCount >= 3)
-            {
-                HighScoreManager.OnGameEnd(score);
-                UIScript._instance.GameOver(score);
-                //ResetPosition();
-            }
-        }
-        else
-        {
-            
-        }
-    }
-
-    private void ResetPosition()
-    {
-        this.gameObject.transform.position = playerStartPosition;
-        this.gameObject.GetComponentInChildren<Rigidbody>().gameObject.transform.position = modelStartPosition;
-        this.gameObject.GetComponentInChildren<Camera>().gameObject.transform.position = cameraStartPosition;
-        tempEndMarker = playerStartPosition;
-        tempStartMarker = tempEndMarker;
-        tempStartTime = Time.time;
-        movementLock = false;
-        backStepCount = 0;
-        score = 0;
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("TriggerEntered");
-
         if(other.gameObject.CompareTag("CarLeft") || other.gameObject.CompareTag("CarRight") || other.gameObject.CompareTag("Obstacle"))
         {
             //Collided with obstacle
-            //Debug.Log("Collided with obstacle");
             SetPlayerMovementSpeed(0.0f);
             internalPlayerSpeed = 0.0f;
             Destroy(GetComponent<Rigidbody>());
             Camera.main.transform.SetParent(null);
-            HighScoreManager.OnGameEnd(score);
+            HighScoreManager._instance.OnGameEnd(score);
             UIScript._instance.GameOver(score);
-            //ResetPosition();
         }
         
         //Player moves onto a log
@@ -236,11 +140,6 @@ public class PlayerScript : MonoBehaviour
         {
             transform.SetParent(other.transform);
         }
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        //Debug.Log("ColliderEntered");
     }
 
     public void OnTriggerStay(Collider other)
