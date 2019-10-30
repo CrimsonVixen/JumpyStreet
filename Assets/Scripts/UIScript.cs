@@ -30,15 +30,15 @@ public class UIScript : MonoBehaviour
             _instance = this;
         }
 
-        for(int i = 0; i < 10; i++)
-        {
-            highScores.Add(HighScoreManager._instance.highScores[i]);
-        }
-
         if(SceneManager.GetActiveScene().name == "GameScene")
         {
             scorePanel.SetActive(true);
             gameOverWindow.SetActive(false);
+
+            for(int i = 0; i < 10; i++)
+            {
+                highScores.Add(HighScoreManager._instance.highScores[i]);
+            }
         }
     }
 
