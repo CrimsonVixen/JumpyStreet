@@ -10,9 +10,9 @@ public class LogMovement : MonoBehaviour
     {
         if(transform.tag == "LogLeft")
         {
-            transform.Translate(Vector3.right / speed); //Higher speed value = slower movement
+            transform.position += transform.right * speed * Time.deltaTime; //Higher speed value = slower movement
 
-            if(transform.position.x > 19)
+            if (transform.position.x > 19)
             {
                 Destroy(gameObject);
             }
@@ -20,9 +20,9 @@ public class LogMovement : MonoBehaviour
 
         else if(transform.tag == "LogRight")
         {
-            transform.Translate(Vector3.left / speed); //Higher speed value = slower movement
+            transform.position += -transform.right * speed * Time.deltaTime; //Higher speed value = slower movement
 
-            if(transform.position.x < -19)
+            if (transform.position.x < -19)
             {
                 Destroy(gameObject);
             }

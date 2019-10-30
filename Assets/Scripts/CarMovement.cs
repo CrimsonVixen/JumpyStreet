@@ -8,7 +8,7 @@ public class CarMovement : MonoBehaviour
 
     public void Update()
     {
-        transform.Translate(Vector3.down / speed); //Higher speed value = slower movement
+        transform.position += -transform.up * speed * Time.deltaTime; //Higher speed value = slower movement
 
         //Destroys left spawning cars
         if(transform.tag == "CarLeft" && transform.position.x > 19)
