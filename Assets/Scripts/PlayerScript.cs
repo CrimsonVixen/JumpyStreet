@@ -28,7 +28,7 @@ public class PlayerScript : MonoBehaviour
     //HighScoreManager scoreManager = new HighScoreManager();
     //UIScript UIManager = new UIScript();
     
-    void Start()
+    public void Start()
     {
         bool temp1 = SetWorldGridSide(1.5f);
         bool temp2 = SetPlayerMovementSpeed(3.5f);
@@ -46,7 +46,7 @@ public class PlayerScript : MonoBehaviour
         score = 0;        
     }
 
-    void Update()
+    public void Update()
     {
         if (Input.GetKeyDown("up") && !movementLock)
         {
@@ -103,7 +103,6 @@ public class PlayerScript : MonoBehaviour
                 tempEndMarker = tempStartMarker;
             }
         }
-        PlayerFallingOffTheWorld();
         
     }
 
@@ -112,17 +111,6 @@ public class PlayerScript : MonoBehaviour
         playerStartPosition = this.gameObject.transform.position;
         cameraStartPosition = this.gameObject.GetComponentInChildren<Camera>().gameObject.transform.position;
         modelStartPosition = this.gameObject.GetComponentInChildren<Rigidbody>().gameObject.transform.position;
-    }
-
-    private void PlayerFallingOffTheWorld()
-    {
-        GameObject temp = GetComponentInChildren<Rigidbody>().gameObject;
-        if (temp.transform.position.y <= -worldGridSize)
-        {
-            ResetPosition();
-            HighScoreManager.OnGameEnd(score);
-            UIScript._instance.GameOver(score);
-        }
     }
 
     public bool SetWorldGridSide(float gridSize)  //Set the worldgrid dimensions, must be a
@@ -202,7 +190,7 @@ public class PlayerScript : MonoBehaviour
             {
                 HighScoreManager.OnGameEnd(score);
                 UIScript._instance.GameOver(score);
-                ResetPosition();
+                //ResetPosition();
             }
         }
         else
@@ -224,19 +212,20 @@ public class PlayerScript : MonoBehaviour
         score = 0;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         //Debug.Log("TriggerEntered");
 
-        if (other.gameObject.CompareTag("CarLeft") || other.gameObject.CompareTag("CarRight") || other.gameObject.CompareTag("Obstacle"))
+        if(other.gameObject.CompareTag("CarLeft") || other.gameObject.CompareTag("CarRight") || other.gameObject.CompareTag("Obstacle"))
         {
             //Collided with obstacle
             Debug.Log("Collided with obstacle");
             SetPlayerMovementSpeed(0.0f);
             internalPlayerSpeed = 0.0f;
+            Destroy(GetComponent<Rigidbody>());
             HighScoreManager.OnGameEnd(score);
             UIScript._instance.GameOver(score);
-            ResetPosition();
+            //ResetPosition();
         }
         
         //Player moves onto a log
@@ -246,12 +235,12 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision)
     {
         //Debug.Log("ColliderEntered");
     }
 
-    private void OnTriggerStay(Collider other)
+    public void OnTriggerStay(Collider other)
     {
         //While Player is on a log
         if(other.gameObject.CompareTag("PlayerContainer") && !movementLock)
@@ -262,7 +251,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void OnTriggerExit(Collider other)
     {
         //Player leaves a log
         if(other.gameObject.CompareTag("PlayerContainer"))
