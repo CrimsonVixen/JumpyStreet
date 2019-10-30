@@ -130,7 +130,6 @@ public class PlayerScript : MonoBehaviour
             SetPlayerMovementSpeed(0.0f);
             internalPlayerSpeed = 0.0f;
             Destroy(GetComponent<Rigidbody>());
-            Camera.main.transform.SetParent(null);
             HighScoreManager._instance.OnGameEnd(score);
             UIScript._instance.GameOver(score);
         }
