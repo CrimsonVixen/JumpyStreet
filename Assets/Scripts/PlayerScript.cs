@@ -34,55 +34,58 @@ public class PlayerScript : MonoBehaviour
 
     public void Update()
     {
-        if(Input.GetKeyDown("up") && !movementLock)
+        if(!UIScript._instance.gamePaused)
         {
-            tempEndMarker.z += worldGridSize;
-            tempStartTime = Time.time;
-            movementLock = true;
-            score += 10;
-            UIScript._instance.UpdateScore(score);
-            GroundGenerator.instance.GenerateGround();
-
-            if(transform.position.z >= 12)
+            if(Input.GetKeyDown("up") && !movementLock)
             {
-                Destroy(GroundGenerator.instance.groundParent.transform.GetChild(0).gameObject);
+                tempEndMarker.z += worldGridSize;
+                tempStartTime = Time.time;
+                movementLock = true;
+                score += 10;
+                UIScript._instance.UpdateScore(score);
+                GroundGenerator.instance.GenerateGround();
+
+                if(transform.position.z >= 12)
+                {
+                    Destroy(GroundGenerator.instance.groundParent.transform.GetChild(0).gameObject);
+                }
             }
-        }
 
-        if(Input.GetKeyDown("down") && !movementLock)
-        {
-            tempEndMarker.z -= worldGridSize;
-            tempStartTime = Time.time;
-            movementLock = true;
-            score -= 10;
-            UIScript._instance.UpdateScore(score);
-        }
-
-        if(Input.GetKeyDown("left") && !movementLock)
-        {
-            tempEndMarker.x -= worldGridSize;
-            tempStartTime = Time.time;
-            movementLock = true;
-        }
-
-        if(Input.GetKeyDown("right") && !movementLock)
-        {
-            tempEndMarker.x += worldGridSize;
-            tempStartTime = Time.time;
-            movementLock = true;
-        }
-
-        if(movementLock)
-        {
-            float distCovered = (Time.time - tempStartTime) * internalPlayerSpeed;
-            float fractionOfJourney = distCovered / worldGridSize;
-            transform.position = Vector3.Lerp(tempStartMarker, tempEndMarker, fractionOfJourney);
-
-            if(transform.position == tempEndMarker)
+            if(Input.GetKeyDown("down") && !movementLock)
             {
-                movementLock = !movementLock;
-                tempStartMarker = transform.position;
-                tempEndMarker = tempStartMarker;
+                tempEndMarker.z -= worldGridSize;
+                tempStartTime = Time.time;
+                movementLock = true;
+                score -= 10;
+                UIScript._instance.UpdateScore(score);
+            }
+
+            if(Input.GetKeyDown("left") && !movementLock)
+            {
+                tempEndMarker.x -= worldGridSize;
+                tempStartTime = Time.time;
+                movementLock = true;
+            }
+
+            if(Input.GetKeyDown("right") && !movementLock)
+            {
+                tempEndMarker.x += worldGridSize;
+                tempStartTime = Time.time;
+                movementLock = true;
+            }
+
+            if(movementLock)
+            {
+                float distCovered = (Time.time - tempStartTime) * internalPlayerSpeed;
+                float fractionOfJourney = distCovered / worldGridSize;
+                transform.position = Vector3.Lerp(tempStartMarker, tempEndMarker, fractionOfJourney);
+
+                if(transform.position == tempEndMarker)
+                {
+                    movementLock = !movementLock;
+                    tempStartMarker = transform.position;
+                    tempEndMarker = tempStartMarker;
+                }
             }
         }
     }

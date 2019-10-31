@@ -13,10 +13,13 @@ public class UIScript : MonoBehaviour
     public GameObject gameOverWindow;
     public GameObject gameOverScoreText;
     public GameObject highScoreTable;
+    public GameObject pausePanel;
 
     private int score;
     private string highScoreString;
     private List<int> highScores = new List<int>();
+
+    public bool gamePaused = false;
 
     public void Awake()
     {
@@ -38,6 +41,18 @@ public class UIScript : MonoBehaviour
             for(int i = 0; i < 10; i++)
             {
                 highScores.Add(HighScoreManager._instance.highScores[i]);
+            }
+        }
+    }
+
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(!gamePaused)
+            {
+                gamePaused = true;
+                pausePanel.SetActive(true);
             }
         }
     }
@@ -66,6 +81,12 @@ public class UIScript : MonoBehaviour
     public void OnHighScoreButtonClick()
     {
         SceneManager.LoadScene("HighScore");
+    }
+
+    public void OnContinueButtonClick()
+    {
+        pausePanel.SetActive(false);
+        gamePaused = false;
     }
 
     public void GameOver(int scoreToSave)

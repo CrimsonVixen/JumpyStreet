@@ -12,7 +12,7 @@ public class LogMovement : MonoBehaviour
         {
             transform.position += transform.right * speed * Time.deltaTime; //Higher speed value = slower movement
 
-            if (transform.position.x > 19)
+            if(transform.position.x > 19)
             {
                 Destroy(gameObject);
             }
@@ -22,7 +22,7 @@ public class LogMovement : MonoBehaviour
         {
             transform.position += -transform.right * speed * Time.deltaTime; //Higher speed value = slower movement
 
-            if (transform.position.x < -19)
+            if(transform.position.x < -19)
             {
                 Destroy(gameObject);
             }
